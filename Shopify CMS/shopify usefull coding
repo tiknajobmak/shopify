@@ -1,0 +1,91 @@
+<!--- To display the content of diffetent page list ---->
+
+  {{ pages['farm-trace-minerals'].content }} // for different page
+   
+  {{ page.content }} // for Same page
+
+
+<!--- To display the vendor list ---->
+
+<ul>
+  {% for product_vendor in shop.vendors %}
+  <li>{{ product_vendor | link_to_vendor }}</li>
+  {% endfor %}
+</ul>
+
+
+
+
+<!--- To display the Types list ---->  
+<ul>
+  {% for product_types in shop.types %}
+  <li>{{ product_types | link_to_vendor }}</li>
+  {% endfor %}
+</ul>
+
+
+
+
+
+<!--- To display the Dynamic Menu without dropdown ---->  
+<ul>
+          {% for link in linklists.main-menu-1.links %}
+          <li class="{% if forloop.first %}first{% elsif forloop.last %}last{%endif%}">
+              <a href="{{ link.url }}">{{ link.title | escape }}</a>
+          </li>
+          {% endfor %}
+</ul>
+
+
+
+
+<!--- To display the Dynamic Menu with dropdown ----> 
+
+<ul>
+          {% for link in linklists.main-menu-1.links %}
+          <li class="{% if forloop.first %}first{% elsif forloop.last %}last{%endif%}">
+            {% assign child_list_handle = link.title | handleize %}
+            {% if linklists[child_list_handle].links != blank %}
+            <div class="has-dropdown">
+              <a href="{{ link.url }}" class="clearfix">
+                <span class="nav-label">{{ link.title | escape }}</span>
+                <span class="nav-arrow"></span>
+              </a>
+              <ul>
+                {% for childlink in linklists[child_list_handle].links %}
+                <li><a href="{{ childlink.url }}">{{ childlink.title | escape }}</a></li>
+                {% endfor %}
+              </ul>
+            </div>
+            {% else %}
+              <a href="{{ link.url }}">{{ link.title | escape }}</a>
+            {% endif %}
+          </li>
+          {% endfor %}
+</ul>
+
+
+
+<!--- News Letter or Subscribe form ----> 
+
+{% form 'customer' %}
+  <input type="hidden" id="contact_tags" name="contact[tags]" value="prospect,newsletter"/>
+  <table>
+    <tr>
+      <td>Enter in your email to join our mailing list:</td>
+      <td>
+        <input type="text" id="contact_email" name="contact[email]"/>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2"><input type='submit' class="submit" /></td>
+    </tr>
+  </table>
+{% endform %}
+
+
+<!--- Use of contains keyword ----> 
+
+{% if product.title contains 'Pack' %}
+  This product's title contains the word Pack.
+{% endif %}

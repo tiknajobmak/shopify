@@ -1,0 +1,48 @@
+<!---- How to call An api Request --->
+
+
+$.ajax({ 
+   type: 'GET',
+   url: '/cart.js',
+   async: false, 
+   cache: false, 
+   dataType: 'json',
+   success: function (data) {
+   alert(JSON.stringify(data));   // Use to convert json in to string
+  }
+ });
+ 
+ 
+ 
+<!---- To Update the data in cart use POST ---->
+ $.ajax({ 
+   type: 'POST',
+   url: '/cart/add.js',
+   async: false, 
+   cache: false, 
+   data: 'quantity=2&id=676149641',
+   dataType: 'json',
+   error: function(data){
+   },
+   success: function(data)
+   {
+   },
+   cache: false 
+ });
+ 
+ <!---- Conversion into an array ---->
+ 
+ $.ajax({ 
+   type: 'GET',
+  url: '/cart.js',
+   async: false, 
+   cache: false, 
+   dataType: 'json',
+   success: function (data) {
+   var json = JSON.stringify(data);   // Use to convert json in to string
+   var json_arr = jQuery.parseJSON(json);
+   $.each(json_arr, function(key, val) {
+    console.log(key + ':' + val);
+      });
+  }
+ });

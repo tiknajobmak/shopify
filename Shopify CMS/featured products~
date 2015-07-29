@@ -1,0 +1,27 @@
+
+<!-----   For Home Page By default featured products ------->
+
+<div class="products">
+
+        {% if settings.enable_featuredproduct %}
+
+          {% for product in collections[settings.frontpage_collection].products offset:1 %}
+          {% include 'product-loop' with settings.frontpage_collection %}
+          {% endfor %}
+
+        {% else %}
+
+          {% for product in collections[settings.frontpage_collection].products %}
+          {% include 'product-loop' with settings.frontpage_collection %}
+          {% endfor %}
+
+        {% endif %}
+
+</div>
+
+
+<!-----   To get all the products from a category or collection ------->
+
+{% for product in collections['featured-products'].products %}
+{{ product.title }}
+{% endfor %}
